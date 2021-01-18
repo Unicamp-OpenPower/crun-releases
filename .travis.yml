@@ -1,0 +1,21 @@
+os: linux
+dist: focal
+arch: ppc64le
+sudo: required
+language: go
+
+go: "1.15.x"
+
+install:
+  - sudo printf "deb https://oplab9.parqtec.unicamp.br/pub/repository/debian/ ./" >> /etc/apt/sources.list
+  - wget https://oplab9.parqtec.unicamp.br/pub/key/openpower-gpgkey-public.asc
+  - sudo apt-key add openpower-gpgkey-public.asc
+  - sudo apt update
+  - sudo apt-get install -y make git gcc build-essential pkgconf libtool libsystemd-dev libcap-dev libseccomp-dev libyajl-dev go-md2man libtool autoconf python3 automake
+  - sudo apt install -y python3 rpm lftp
+  - printf "set ssl:verify-certificate false" >> ~/.lftprc
+
+script:
+  - python3 ftp_version.py
+  - bash build.sh
+  - bash release.sh
