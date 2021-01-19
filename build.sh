@@ -6,6 +6,7 @@ if [ $github_version != $ftp_version ]
 then
   git clone https://github.com/containers/crun.git
   cd crun
+  git checkout $github_version
   ./autogen.sh
   ./configure
   make
