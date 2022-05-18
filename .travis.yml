@@ -14,5 +14,5 @@ install:
 
 script:
   - python3 ftp_version.py
-  - bash build.sh
+  - travis_wait 30 bash build.sh
   - bash release.sh
